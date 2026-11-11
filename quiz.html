@@ -1,0 +1,1375 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grade 6 ICT Quiz</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: linear-gradient(135deg, #dff5ff, #f3e5ff, #fff0df);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #26324a;
+}
+
+.container {
+    width: 100%;
+    max-width: 850px;
+    background: white;
+    border-radius: 25px;
+    padding: 30px;
+    box-shadow: 0 12px 35px rgba(50, 60, 100, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    color: #5634a5;
+    margin: 5px 0;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #718096;
+    margin-bottom: 25px;
+}
+
+.emoji {
+    text-align: center;
+    font-size: 55px;
+    margin-bottom: 8px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 15px 0 7px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 2px solid #d9d8ee;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #7955d9;
+}
+
+button {
+    border: none;
+    border-radius: 12px;
+    padding: 13px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+}
+
+.primary {
+    background: linear-gradient(135deg, #7048d8, #a15be8);
+    color: white;
+    width: 100%;
+    margin-top: 22px;
+}
+
+.secondary {
+    background: #e9e4ff;
+    color: #5634a5;
+}
+
+.danger {
+    background: #ffe2e2;
+    color: #b83232;
+}
+
+.teacher-button {
+    display: block;
+    margin: 15px auto 0;
+    background: transparent;
+    color: #7955d9;
+    text-decoration: underline;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+.info {
+    background: #f3efff;
+    border-radius: 15px;
+    padding: 15px;
+    line-height: 1.7;
+    margin: 18px 0;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.pill {
+    background: #f0ebff;
+    color: #5b3aa5;
+    border-radius: 30px;
+    padding: 9px 15px;
+    font-weight: bold;
+}
+
+.progress {
+    height: 12px;
+    background: #eeeaf7;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #7050df, #f09bd6);
+    transition: width 0.3s;
+}
+
+.question {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.option {
+    text-align: left;
+    background: #f5f3fc;
+    color: #30334c;
+    border: 2px solid transparent;
+    min-height: 65px;
+    line-height: 1.4;
+}
+
+.option:hover:not(:disabled) {
+    background: #eee7ff;
+    border-color: #a78bfa;
+}
+
+.option:disabled {
+    cursor: default;
+    opacity: 1;
+}
+
+.option.correct {
+    background: #dcfce7;
+    border-color: #22c55e;
+    color: #166534;
+}
+
+.option.wrong {
+    background: #ffe4e6;
+    border-color: #fb7185;
+    color: #9f1239;
+}
+
+.feedback {
+    text-align: center;
+    font-weight: bold;
+    min-height: 30px;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+.stars {
+    color: #e5a500;
+    font-size: 23px;
+    letter-spacing: 4px;
+}
+
+.result-score {
+    font-size: 65px;
+    font-weight: bold;
+    color: #7048d8;
+    text-align: center;
+    margin: 15px;
+}
+
+.result-message {
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+th, td {
+    border: 1px solid #e3e0ef;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #eee8ff;
+    color: #5634a5;
+}
+
+tr:nth-child(even) {
+    background: #faf9ff;
+}
+
+.dashboard-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.dashboard-actions button {
+    flex: 1;
+}
+
+.empty {
+    text-align: center;
+    color: #777;
+    padding: 25px;
+}
+
+/* Surprise animation */
+
+.surprise {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(24, 18, 55, 0.78);
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.surprise.show {
+    display: flex;
+}
+
+.surprise-card {
+    background: white;
+    border-radius: 25px;
+    padding: 35px;
+    width: min(420px, 95%);
+    animation: pop 0.45s ease;
+    position: relative;
+    z-index: 12;
+}
+
+.big-icon {
+    font-size: 100px;
+    animation: bounce 0.8s infinite alternate;
+}
+
+.surprise-card h2 {
+    color: #6039b5;
+    margin: 10px 0;
+}
+
+.surprise-card p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.confetti {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 16px;
+    z-index: 11;
+    animation: fall 2.5s linear forwards;
+    pointer-events: none;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: scale(1) rotate(-8deg);
+    }
+    to {
+        transform: scale(1.2) rotate(8deg);
+    }
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    .options {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .question {
+        font-size: 19px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- WELCOME SCREEN -->
+
+    <section id="welcomeScreen" class="screen active">
+
+        <div class="emoji">💻🌟</div>
+
+        <h1>Grade 6 ICT Quiz</h1>
+
+        <p class="subtitle">
+            Exploring Websites and Web Page Content
+        </p>
+
+        <div class="info">
+            <strong>Welcome, ICT Explorer!</strong><br>
+
+            Answer 10 multiple-choice questions and collect stars
+            for every correct answer.
+
+            <br><br>
+
+            ⭐ Each correct answer earns one star.<br>
+            🏆 Maximum score: 10 stars.<br>
+            📝 You have only ONE attempt per question.
+        </div>
+
+        <label for="studentName">Student Name</label>
+
+        <input
+            id="studentName"
+            type="text"
+            placeholder="Enter your full name"
+        >
+
+        <label for="studentClass">Class</label>
+
+        <input
+            id="studentClass"
+            type="text"
+            placeholder="Example: Grade 6A"
+        >
+
+        <button class="primary" onclick="startQuiz()">
+            Start Quiz 🚀
+        </button>
+
+        <button class="teacher-button" onclick="showTeacherLogin()">
+            Teacher Dashboard
+        </button>
+
+    </section>
+
+
+    <!-- QUIZ SCREEN -->
+
+    <section id="quizScreen" class="screen">
+
+        <div class="topbar">
+
+            <span class="pill" id="questionNumber">
+                Question 1 of 10
+            </span>
+
+            <span class="pill">
+                ⭐ Stars: <span id="starCount">0</span>/10
+            </span>
+
+        </div>
+
+        <div class="progress">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="question" id="questionText"></div>
+
+        <div class="options" id="optionsArea"></div>
+
+        <div class="feedback" id="feedback"></div>
+
+        <button
+            id="nextButton"
+            class="primary"
+            style="display:none"
+            onclick="nextQuestion()"
+        >
+            Next Question →
+        </button>
+
+    </section>
+
+
+    <!-- RESULT SCREEN -->
+
+    <section id="resultScreen" class="screen">
+
+        <div class="emoji">🏆🎉</div>
+
+        <h1>Quiz Completed!</h1>
+
+        <div class="result-score" id="finalScore">
+            0/10
+        </div>
+
+        <div class="stars" id="finalStars"></div>
+
+        <p class="result-message" id="resultMessage"></p>
+
+        <div class="info" id="studentSummary"></div>
+
+        <button class="primary" onclick="returnHome()">
+            Finish
+        </button>
+
+    </section>
+
+
+    <!-- TEACHER LOGIN SCREEN -->
+
+    <section id="teacherLoginScreen" class="screen">
+
+        <div class="emoji">👩‍🏫</div>
+
+        <h1>Teacher Dashboard</h1>
+
+        <p class="subtitle">
+            View student quiz results
+        </p>
+
+        <label for="teacherPassword">
+            Teacher Password
+        </label>
+
+        <input
+            id="teacherPassword"
+            type="password"
+            placeholder="Enter teacher password"
+        >
+
+        <button class="primary" onclick="teacherLogin()">
+            Open Dashboard
+        </button>
+
+        <button
+            class="teacher-button"
+            onclick="showScreen('welcomeScreen')"
+        >
+            Back to Quiz
+        </button>
+
+        <p id="loginError" class="feedback"></p>
+
+    </section>
+
+
+    <!-- TEACHER DASHBOARD -->
+
+    <section id="dashboardScreen" class="screen">
+
+        <h1>📊 Student Results</h1>
+
+        <p class="subtitle">
+            Grade 6 ICT Quiz
+        </p>
+
+        <div class="info">
+
+            <strong>Total Attempts:</strong>
+            <span id="totalAttempts">0</span>
+
+            <br>
+
+            <strong>Average Score:</strong>
+            <span id="averageScore">0</span>/10
+
+        </div>
+
+        <div class="dashboard-actions">
+
+            <button class="secondary" onclick="exportCSV()">
+                ⬇ Download Results
+            </button>
+
+            <button class="danger" onclick="clearResults()">
+                Clear Results
+            </button>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>No.</th>
+                        <th>Student Name</th>
+                        <th>Class</th>
+                        <th>Score</th>
+                        <th>Date & Time</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="resultsTable"></tbody>
+
+            </table>
+
+        </div>
+
+        <button
+            class="primary"
+            onclick="showScreen('welcomeScreen')"
+        >
+            Back to Home
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- FEEDBACK POPUP -->
+
+<div class="surprise" id="surprise">
+
+    <div class="surprise-card">
+
+        <div class="big-icon" id="surpriseIcon">
+            ⭐
+        </div>
+
+        <h2 id="surpriseTitle">
+            Amazing!
+        </h2>
+
+        <p id="surpriseMessage">
+            Your answer is correct!
+        </p>
+
+        <button class="primary" onclick="closeSurprise()">
+            Continue
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+    TEACHER PASSWORD
+    Change this password before using the quiz.
+*/
+
+const TEACHER_PASSWORD = "ICT2026";
+
+
+/* QUIZ QUESTIONS */
+
+const questions = [
+
+    {
+        question: "1. What is a website?",
+        options: [
+            "A collection of related web pages",
+            "A computer keyboard",
+            "A type of printer",
+            "A computer game only"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "2. What is a web browser used for?",
+        options: [
+            "To print documents",
+            "To access and view websites",
+            "To draw pictures only",
+            "To store electricity"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "3. Which of the following is a web browser?",
+        options: [
+            "Microsoft Word",
+            "Paint",
+            "Google Chrome",
+            "Calculator"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "4. What is the Home Page of a website?",
+        options: [
+            "The first or main page of a website",
+            "The last page of a book",
+            "The computer desktop",
+            "A search result only"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "5. What is a hyperlink?",
+        options: [
+            "A type of computer mouse",
+            "A link that takes users to another page or location",
+            "A picture editing tool",
+            "A computer password"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "6. What does URL identify?",
+        options: [
+            "The speed of a computer",
+            "The name of a keyboard",
+            "The address of a resource on the Internet",
+            "The size of a monitor"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "7. Which of these can be found on a web page?",
+        options: [
+            "Text and images",
+            "Videos and hyperlinks",
+            "Tables and animations",
+            "All of the above"
+        ],
+        answer: 3
+    },
+
+    {
+        question: "8. Which website is a Sri Lankan educational website?",
+        options: [
+            "e-Thaksalawa",
+            "An online shopping site",
+            "A music player",
+            "A computer calculator"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "9. Which tool can be used to search for information on the Internet?",
+        options: [
+            "Google Search",
+            "Paint",
+            "Notepad",
+            "Calculator"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "10. What are keywords used for when searching online?",
+        options: [
+            "To switch off a computer",
+            "To help find relevant information",
+            "To increase screen brightness",
+            "To open the keyboard"
+        ],
+        answer: 1
+    }
+
+];
+
+
+/* QUIZ VARIABLES */
+
+let currentQuestion = 0;
+let score = 0;
+let student = {};
+let questionLocked = false;
+let studentAnswers = [];
+
+
+/* CHANGE SCREENS */
+
+function showScreen(screenId) {
+
+    document.querySelectorAll(".screen").forEach(screen => {
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(screenId).classList.add("active");
+
+}
+
+
+/* START QUIZ */
+
+function startQuiz() {
+
+    const name = document.getElementById("studentName").value.trim();
+
+    const studentClass = document.getElementById("studentClass").value.trim();
+
+    if (!name || !studentClass) {
+
+        alert("Please enter your name and class before starting.");
+
+        return;
+    }
+
+    student = {
+        name,
+        studentClass
+    };
+
+    currentQuestion = 0;
+    score = 0;
+    studentAnswers = [];
+
+    document.getElementById("starCount").textContent = "0";
+
+    showScreen("quizScreen");
+
+    displayQuestion();
+
+}
+
+
+/* DISPLAY QUESTION */
+
+function displayQuestion() {
+
+    questionLocked = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber").textContent =
+        "Question " + (currentQuestion + 1) +
+        " of " + questions.length;
+
+    document.getElementById("questionText").textContent =
+        q.question;
+
+    document.getElementById("progressFill").style.width =
+        (currentQuestion / questions.length * 100) + "%";
+
+    document.getElementById("feedback").textContent = "";
+
+    document.getElementById("nextButton").style.display = "none";
+
+    const optionsArea = document.getElementById("optionsArea");
+
+    optionsArea.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+
+        const button = document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent =
+            String.fromCharCode(65 + index) + ". " + option;
+
+        button.onclick = () => checkAnswer(index, button);
+
+        optionsArea.appendChild(button);
+
+    });
+
+}
+
+
+/* CHECK ANSWER - ONE ATTEMPT ONLY */
+
+function checkAnswer(selectedIndex, selectedButton) {
+
+    // Prevent selecting another answer
+    if (questionLocked) return;
+
+    questionLocked = true;
+
+    const q = questions[currentQuestion];
+
+    const allOptions = document.querySelectorAll(".option");
+
+    // Disable every answer button immediately
+    allOptions.forEach(button => {
+        button.disabled = true;
+    });
+
+    const isCorrect = selectedIndex === q.answer;
+
+    // Save the student's first answer
+    studentAnswers.push({
+
+        question: q.question,
+
+        selected: q.options[selectedIndex],
+
+        correct: isCorrect
+
+    });
+
+
+    if (isCorrect) {
+
+        // Award one mark
+        score++;
+
+        // Highlight the correct answer
+        selectedButton.classList.add("correct");
+
+        // Update star counter
+        document.getElementById("starCount").textContent = score;
+
+        document.getElementById("feedback").textContent =
+            "⭐ Correct! Well done!";
+
+        // Show star and confetti
+        showSurprise(true);
+
+    } else {
+
+        // Highlight the student's incorrect answer
+        selectedButton.classList.add("wrong");
+
+        // Highlight the correct answer in green
+        allOptions[q.answer].classList.add("correct");
+
+        const correctLetter =
+            String.fromCharCode(65 + q.answer);
+
+        // Display correct answer below the question
+        document.getElementById("feedback").textContent =
+            "❌ Incorrect! The correct answer is " +
+            correctLetter + ". " + q.options[q.answer];
+
+        // Show correct answer in popup
+        showSurprise(false);
+
+        document.getElementById("surpriseIcon").textContent =
+            "💡";
+
+        document.getElementById("surpriseTitle").textContent =
+            "Let's Learn!";
+
+        document.getElementById("surpriseMessage").textContent =
+            "The correct answer is " +
+            correctLetter + ". " + q.options[q.answer];
+
+    }
+
+    // Show Next Question button
+    document.getElementById("nextButton").style.display = "block";
+
+}
+
+
+/* SURPRISE POPUP */
+
+function showSurprise(correct) {
+
+    const popup = document.getElementById("surprise");
+
+    const icon = document.getElementById("surpriseIcon");
+
+    const title = document.getElementById("surpriseTitle");
+
+    const message = document.getElementById("surpriseMessage");
+
+
+    if (correct) {
+
+        icon.textContent = "⭐";
+
+        title.textContent = "Amazing!";
+
+        message.textContent =
+            "Your answer is correct! You earned one star!";
+
+        createConfetti();
+
+    } else {
+
+        icon.textContent = "💡";
+
+        title.textContent = "Let's Learn!";
+
+        message.textContent =
+            "Not quite! Check the correct answer and keep learning.";
+
+    }
+
+    popup.classList.add("show");
+
+}
+
+
+/* CLOSE POPUP */
+
+function closeSurprise() {
+
+    document.getElementById("surprise").classList.remove("show");
+
+}
+
+
+/* CONFETTI ANIMATION */
+
+function createConfetti() {
+
+    const colours = [
+        "#ff4d6d",
+        "#ffd166",
+        "#06d6a0",
+        "#4dabf7",
+        "#a78bfa"
+    ];
+
+    for (let i = 0; i < 65; i++) {
+
+        const piece = document.createElement("div");
+
+        piece.className = "confetti";
+
+        piece.style.left = Math.random() * 100 + "vw";
+
+        piece.style.backgroundColor =
+            colours[Math.floor(Math.random() * colours.length)];
+
+        piece.style.animationDelay =
+            Math.random() * 0.8 + "s";
+
+        piece.style.borderRadius =
+            Math.random() > 0.5 ? "50%" : "2px";
+
+        document.body.appendChild(piece);
+
+        setTimeout(() => piece.remove(), 3500);
+
+    }
+
+}
+
+
+/* NEXT QUESTION */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+        displayQuestion();
+
+    } else {
+
+        finishQuiz();
+
+    }
+
+}
+
+
+/* FINISH QUIZ AND SAVE RESULTS */
+
+function finishQuiz() {
+
+    document.getElementById("progressFill").style.width = "100%";
+
+    const result = {
+
+        name: student.name,
+
+        studentClass: student.studentClass,
+
+        score: score,
+
+        total: questions.length,
+
+        date: new Date().toLocaleString(),
+
+        answers: studentAnswers
+
+    };
+
+    // Save results in browser storage
+    const records = JSON.parse(
+        localStorage.getItem("ictQuizResults") || "[]"
+    );
+
+    records.push(result);
+
+    localStorage.setItem(
+        "ictQuizResults",
+        JSON.stringify(records)
+    );
+
+
+    // Display final score
+    document.getElementById("finalScore").textContent =
+        score + "/" + questions.length;
+
+
+    // Display earned stars
+    document.getElementById("finalStars").textContent =
+        "⭐".repeat(score) +
+        "☆".repeat(questions.length - score);
+
+
+    // Result messages
+    let message = "";
+
+    if (score === 10) {
+
+        message = "Outstanding! You are an ICT Star! 🌟";
+
+    } else if (score >= 7) {
+
+        message = "Excellent work! Keep learning! 🎉";
+
+    } else if (score >= 5) {
+
+        message = "Good effort! Keep practising! 😊";
+
+    } else {
+
+        message = "Keep trying! Learning takes practice! 💪";
+
+    }
+
+    document.getElementById("resultMessage").textContent =
+        message;
+
+
+    // Display student information
+    document.getElementById("studentSummary").innerHTML =
+
+        "<strong>Student:</strong> " +
+        escapeHTML(student.name) +
+
+        "<br><strong>Class:</strong> " +
+        escapeHTML(student.studentClass) +
+
+        "<br><strong>Correct answers:</strong> " +
+        score +
+
+        "<br><strong>Total questions:</strong> 10";
+
+
+    showScreen("resultScreen");
+
+}
+
+
+/* RETURN TO HOME */
+
+function returnHome() {
+
+    document.getElementById("studentName").value = "";
+
+    document.getElementById("studentClass").value = "";
+
+    showScreen("welcomeScreen");
+
+}
+
+
+/* TEACHER LOGIN */
+
+function showTeacherLogin() {
+
+    document.getElementById("teacherPassword").value = "";
+
+    document.getElementById("loginError").textContent = "";
+
+    showScreen("teacherLoginScreen");
+
+}
+
+
+function teacherLogin() {
+
+    const password =
+        document.getElementById("teacherPassword").value;
+
+    if (password === TEACHER_PASSWORD) {
+
+        showScreen("dashboardScreen");
+
+        loadDashboard();
+
+    } else {
+
+        document.getElementById("loginError").textContent =
+            "Incorrect password. Please try again.";
+
+    }
+
+}
+
+
+/* LOAD TEACHER DASHBOARD */
+
+function loadDashboard() {
+
+    const records = JSON.parse(
+        localStorage.getItem("ictQuizResults") || "[]"
+    );
+
+    const table = document.getElementById("resultsTable");
+
+    table.innerHTML = "";
+
+    document.getElementById("totalAttempts").textContent =
+        records.length;
+
+
+    const totalScore = records.reduce(
+        (sum, record) => sum + record.score, 0
+    );
+
+    const average = records.length
+        ? (totalScore / records.length).toFixed(2)
+        : "0";
+
+    document.getElementById("averageScore").textContent =
+        average;
+
+
+    if (records.length === 0) {
+
+        table.innerHTML =
+            '<tr><td colspan="5" class="empty">No student results yet.</td></tr>';
+
+        return;
+
+    }
+
+
+    records.forEach((record, index) => {
+
+        const row = document.createElement("tr");
+
+        [
+
+            index + 1,
+
+            record.name,
+
+            record.studentClass,
+
+            record.score + "/" + record.total,
+
+            record.date
+
+        ].forEach(value => {
+
+            const cell = document.createElement("td");
+
+            cell.textContent = value;
+
+            row.appendChild(cell);
+
+        });
+
+        table.appendChild(row);
+
+    });
+
+}
+
+
+/* DOWNLOAD RESULTS AS CSV */
+
+function exportCSV() {
+
+    const records = JSON.parse(
+        localStorage.getItem("ictQuizResults") || "[]"
+    );
+
+    if (records.length === 0) {
+
+        alert("There are no results to download.");
+
+        return;
+
+    }
+
+
+    const rows = [
+
+        [
+            "Student Name",
+            "Class",
+            "Score",
+            "Total",
+            "Date and Time"
+        ],
+
+        ...records.map(record => [
+
+            record.name,
+
+            record.studentClass,
+
+            record.score,
+
+            record.total,
+
+            record.date
+
+        ])
+
+    ];
+
+
+    const csv = rows.map(row =>
+
+        row.map(value =>
+            '"' + String(value).replace(/"/g, '""') + '"'
+        ).join(",")
+
+    ).join("\n");
+
+
+    const blob = new Blob(
+        ["\uFEFF" + csv],
+        { type: "text/csv;charset=utf-8;" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download = "Grade6_ICT_Quiz_Results.csv";
+
+    link.click();
+
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+}
+
+
+/* CLEAR RESULTS */
+
+function clearResults() {
+
+    const confirmed = confirm(
+
+        "Are you sure you want to permanently delete all saved student results on this browser?"
+
+    );
+
+    if (confirmed) {
+
+        localStorage.removeItem("ictQuizResults");
+
+        loadDashboard();
+
+        alert("Results cleared.");
+
+    }
+
+}
+
+
+/* PROTECT STUDENT NAME DISPLAY */
+
+function escapeHTML(value) {
+
+    return String(value).replace(/[&<>"']/g, character => ({
+
+        "&": "&amp;",
+
+        "<": "&lt;",
+
+        ">": "&gt;",
+
+        '"': "&quot;",
+
+        "'": "&#039;"
+
+    })[character]);
+
+}
+
+</script>
+
+</body>
+</html>
